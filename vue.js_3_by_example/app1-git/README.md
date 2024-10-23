@@ -1,6 +1,7 @@
 # app1-git
 
-This template should help get you started developing with Vue 3 in Vite.
+User need to get a token from: https://github.com/settings/tokens  
+This display informations using github rest api.
 
 ## Recommended IDE Setup
 
