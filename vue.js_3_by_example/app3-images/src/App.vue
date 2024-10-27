@@ -1,12 +1,16 @@
 <template>
+  <nav-bar v-if="!$route.fullPath.includes('login')"></nav-bar>
+  <router-view></router-view>
   <img alt="Vue logo" src="./assets/logo.png">
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
+    NavBar,
   }
 }
 </script>
