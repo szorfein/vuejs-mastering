@@ -1,45 +1,48 @@
 const express = require('express');
 const router = express.Router();
-const sqlite3 = require('sqlite3').verbose();
+const db = require('../middlewares/database');
 const verifyToken = require('../middlewares/verify-token');
 
 router.get('/', (req, res) => {
-  const db = new sqlite3.Database('./db.sqlite');
-  db.serialize(() => {
-    db.all("SELECT * FROM catalog_items", [], (err, rows = []) => {
+  db.all("SELECT * FROM catalog_items", [], (err, rows = []) => {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    } else {
       res.json(rows);
-    });
+    }
   });
-  db.close();
 });
 
 router.post('/', verifyToken, (req, res) => {
-  const { name, description, imageURL } = req.body;
-  const db = new sqlite3.Database('./db.sqlite');
-  db.serialize(() => {
-    const stmt = db.prepare(`
-INSERT INTO catalog_items (
-name,
-description,
-imageURL
-) VALUES (?, ?, ?)`);
-    smtp.run(name, description, imageURL);
-    smtp.finalize();
-    res.json({ status: 'success' });
+  const { name, description, imageUrl } = req.body;
+  console.log(`${name} - ${description} - ${imageUrl}`);
+  const sql = 'INSERT INTO catalog_items (name, description, image_url) VALUES (?, ?, ?)';
+  const params = [name, description, imageUrl];
+
+  db.run(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({"error": err.message})
+      return;
+    } else {
+      res.json({ status: 'success' });
+    }
   });
-  db.close();
 });
 
 router.delete('/:id', verifyToken, (req, res) => {
   const { id } = req.params;
-  const db = new sqlite3.Database('./db.sqlite');
-  db.serialize(() => {
-    const stmt = db.prepare("DELETE FROM catalog_items WHERE id = (?)");
-    stmt.run(id);
-    stmt.finalize();
-    res.json({ status: 'success' });
+  const sql = "DELETE FROM catalog_items WHERE id = (?)";
+  const params = [id];
+
+  db.run(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({"error": err.message})
+      return;
+    } else {
+      res.json({ status: 'success' });
+    }
   });
-  db.close();
 });
 
 module.exports = router;
