@@ -2,9 +2,9 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
 const verifyToken = require('../middlewares/verify-token');
+const db = require('../middlewares/database.js');
 
 router.get('/', (req, res, next) => {
-  const db = new sqlite3.Database('./db.sqlite');
   db.serialize(() => {
     db.all(`
 SELECT bookings.*,
@@ -17,11 +17,9 @@ INNER JOIN catalog_items ON catalog_items.id = bookings.catalog_item_id
              res.json(rows);
            });
   })
-  db.close();
 });
 
 router.post('/', (req, res, next) => {
-  const db = new sqlite3.Database('./db.sqlite');
   const { catalogItemId, name, address, startDate, endDate } = req.body
   db.serialize(() => {
     const stmt = db.prepare(`
@@ -37,11 +35,9 @@ end_date,
     stmt.finalize();
     res.json({ catalogItemId, name, startDate, endDate });
   })
-  db.close();
 });
 
 router.delete('/:id', verifyToken, (req, res) => {
-  const db = new sqlite3.Database('./db.sqlite');
   const { id } = req.params;
   db.serialize(() => {
     const stmt = db.prepare("DELETE FROM bookings WHERE id = (?)");
@@ -49,7 +45,6 @@ router.delete('/:id', verifyToken, (req, res) => {
     stmt.finalize();
     res.json({ status: 'success' });
   });
-  db.close();
 });
 
 module.exports = router;

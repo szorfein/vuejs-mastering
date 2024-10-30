@@ -9,6 +9,7 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import TextArea from 'primevue/textarea'
 import Card from 'primevue/card'
+import Menubar from 'primevue/menubar'
 
 import './plugins/axios'
 
@@ -20,6 +21,7 @@ createApp(App)
   .component('Dialog', Dialog)
   .component('TextArea', TextArea)
   .component('Card', Card)
+  .component('Menubar', Menubar)
   .component('Form', Form)
   .component('Field', Field)
   .use(PrimeVue)

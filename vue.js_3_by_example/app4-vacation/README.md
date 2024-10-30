@@ -9,4 +9,5 @@
   [vee-validate](https://vee-validate.logaretm.com/v4/) and
 [yup](https://www.npmjs.com/package/yup).
 - Vue - UI with [primevue](https://primevue.org/)
-- Authentication by json token with axios (header x-token).
+- Authentication by json token (jwt) with axios (header x-token).
+- vue template

@@ -1,4 +1,5 @@
 <template>
+    <TopBar title="Manage Vacation Packages" />
     <h1>Catalog</h1>
     <div class="p-col-12">
         <Button label="Add Vacation Package" @click="displayCatalog = true" />
@@ -33,11 +34,13 @@
  import axios from "axios";
  import { APIURL } from "@/constants";
  import CatalogForm from "@/components/CatalogForm.vue";
+ import TopBar from "@/components/TopBar.vue";
 
  export default {
      name: 'Catalog',
      components: {
          CatalogForm,
+         TopBar,
      },
      data() {
          return {
