@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var database = require('./database.js');
+
 // https://graphql.org/graphql-js/running-an-express-graphql-server/
 var { createHandler } = require('graphql-http/lib/use/express');
 var { buildSchema } = require('graphql');
@@ -88,6 +90,7 @@ var usersRouter = require('./routes/users');
 var authMiddleware = (req, res, next) => {
   const { query = '' } = req.body;
   const token = req.get('authorization');
+  console.log(`token > ${token}`);
   const requiresAuth = query.includes('removeOrder') ||
         query.includes('removeShopItem') ||
         query.includes('addShopItem');

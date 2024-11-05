@@ -2,14 +2,7 @@ var sqlite3 = require('sqlite3').verbose();
 
 const DBSOURCE = "./db.sqlite"
 
-let db = new sqlite3.Database(DBSOURCE, (err) => {
-  if (err) {
-    // Cannot open database
-    console.log(`Cannot open database..., ${err.message}`);
-    throw err
-  } else {
-    console.log('connected...');
-    db.run(`
+let create_tables = `
 CREATE TABLE shop_items (
 shop_item_id INTEGER NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
@@ -31,16 +24,27 @@ shop_item_id INTEGER NOT NULL,
 FOREIGN KEY (order_id) REFERENCES orders(order_id),
 FOREIGN KEY (shop_item_id) REFERENCES shop_items(shop_item_id)
 );
-    `, (err) => {
-      if (err) {
-        // table arealy exist
-        console.log('table exist');
-      } else {
-        // exist
-        console.log('table no err reported');
-      }
-  });
+`;
+
+let db = new sqlite3.Database(DBSOURCE, (err) => {
+  if (err) {
+    // Cannot open database
+    console.log(`Cannot open database..., ${err.message}`);
+    throw err
   }
+});
+
+db.serialize(() => {
+  console.log('connected...');
+  db.run(create_tables, (err) => {
+    if (err) {
+      // table arealy exist
+      console.log('table exist');
+    } else {
+      // exist
+      console.log('table no err reported');
+    }
+  });
 });
 
 module.exports = db;

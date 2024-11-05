@@ -1,16 +1,17 @@
-const db = require('../database');
+var sqlite3 = require('sqlite3').verbose();
 
 module.exports = {
   getOrders: () => {
+    const db = new sqlite3.Database('./db.sqlite');
     return new Promise((resolve, reject) => {
       db.serialize(() => {
         db.all(`
 SELECT *,
 orders.name AS purchaser_name,
-shop_items.name AS shot_item_name
+shop_items.name AS shop_item_name
 FROM orders
 INNER JOIN order_shop_items ON orders.order_id = order_shop_items.order_id
-INNER JOIN shop_item ON order_shop_items.shop_item_id = shop_items, shop_item_id
+INNER JOIN shop_items ON order_shop_items.shop_item_id = shop_items.shop_item_id
 `, [], (err, rows = []) => {
   if (err) {
     reject(err);
@@ -37,6 +38,7 @@ INNER JOIN shop_item ON order_shop_items.shop_item_id = shop_items, shop_item_id
     })
   },
   addOrder: ({ order: { name, address, phone, ordered_items: orderedItems } }) => {
+    const db = new sqlite3.Database('./db.sqlite');
     return new Promise((resolve) => {
       db.serialize(() => {
         const orderStmt = db.prepare(`
@@ -66,6 +68,7 @@ INSERT INTO order_shop_items (order_id, shop_item_id) VALUES (?, ?, ?)
     });
   },
   removeOrder: ({ orderId }) => {
+    const db = new sqlite3.Database('./db.sqlite');
     return new Promise((resolve) => {
       db.serialize(() => {
         const delOrderShopItemStmt = db.prepare("DELETE FROM order_shop_items WHERE order_id = (?)");
