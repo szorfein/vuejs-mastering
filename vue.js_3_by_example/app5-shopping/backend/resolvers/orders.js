@@ -19,7 +19,7 @@ INNER JOIN shop_items ON order_shop_items.shop_item_id = shop_items.shop_item_id
 
   const orders = {};
   for (const row of rows) {
-    const { order_id, purchaser_name: name, adress, phone } = row
+    const { order_id, purchaser_name: name, address, phone } = row
     orders[order_id] = { order_id, name, address, phone }
   }
 
@@ -51,13 +51,13 @@ INSERT INTO orders (name, address, phone) VALUES (?, ?, ?)
           const [{ order_id: orderId }] = rows;
           db.serialize(() => {
             const orderShopItemStmt = db.prepare(`
-INSERT INTO order_shop_items (order_id, shop_item_id) VALUES (?, ?, ?)
+INSERT INTO order_shop_items (order_id, shop_item_id) VALUES (?, ?)
 `);
             for (const orderItem of orderedItems) {
               const {
                 shop_item_id: shopItemId
               } = orderItem
-              orderShopItemStmt.run(order_id, shopItemId);
+              orderShopItemStmt.run(orderId, shopItemId);
             }
             orderShopItemStmt.finalize();
           });

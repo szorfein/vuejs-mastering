@@ -42,3 +42,9 @@ List content of a table
 Exit
 
     .exit
+
+## Docs
+
+- [sqlite-tuto](https://www.sqlitetutorial.net/sqlite-nodejs/create-tables/)
+- [start-with-sqlite](https://www.linode.com/docs/guides/getting-started-with-nodejs-sqlite/)
+- [base-rest-api](https://developerhowto.com/2018/12/29/build-a-rest-api-with-node-js-and-express-js/)
