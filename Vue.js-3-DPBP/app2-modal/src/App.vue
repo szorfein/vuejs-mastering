@@ -8,7 +8,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
  function showModal() {
    result.value = ''
-   $modals.show('myModal').then(() => { // myModal name from the template
+   $modals.show('myModal').then(() => { // myModal name come from the template
      result.value = 'Modal accepted'
    }, () => {
      result.value = 'Modal canceled'
