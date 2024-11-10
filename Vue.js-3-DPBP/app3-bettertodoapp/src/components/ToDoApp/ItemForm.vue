@@ -2,10 +2,10 @@
     <h1>New ToDo</h1>
     <div>
         <strong>Descrition</strong>
-        <input type="text" v-model.string="item.text" @blur="emitUpdate()">
+        <input type="text" v-model.string="_item.text" @blur="emitUpdate()">
 
         <strong>Status</strong>
-        <select v-model.string="item.status" @change="emitUpdate()">
+        <select v-model.string="_item.status" @change="emitUpdate()">
             <option v-for="state in todoService.getStatusList()" :key="state.id" :value="state.id">
                 {{ state.label }}
             </option>
@@ -22,11 +22,13 @@
      modelValue: { type: Object, default: () => {} }
  }),
  $emit = defineEmits(['update:modelValue']),
- item = ref({})
+ _item = ref({})
 
- item.value = { ...$props.modelValue }
+ _item.value = { ...$props.modelValue }
 
  function emitUpdate() {
-     $emit("update:modelValue", item.value)
+     let tojson = JSON.stringify(_item.value)
+     console.log(`Emit from form > ${tojson}`)
+     $emit("update:modelValue", _item.value)
  }
 </script>

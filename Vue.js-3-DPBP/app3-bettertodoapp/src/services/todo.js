@@ -15,6 +15,16 @@ const service = {
   },
   makeCopy(item) {
     return JSON.parse(JSON.stringify(item))
+  },
+  toggleStatus(status) {
+    switch(status) {
+      case "not_started":
+        return "in_progress"
+      case "in_progress":
+        return "completed"
+      case "completed":
+        return "not_started"
+    }
   }
 }
 

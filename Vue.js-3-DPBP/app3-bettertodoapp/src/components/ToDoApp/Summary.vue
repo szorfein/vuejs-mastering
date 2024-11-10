@@ -1,19 +1,17 @@
 <template>
     <h1>Summary</h1>
-    <template>
-        <div>
-            <strong>Pending</strong>
-            <h2>{{ state?.not_started }}</h2>
-        </div>
-        <div>
-            <strong>In Progress</strong>
-            <h2>{{ state?.in_progress }}</h2>
-        </div>
-        <div>
-            <strong>Completed</strong>
-            <h2>{{ state?.completed }}</h2>
-        </div>
-    </template>
+    <div>
+        <strong>Pending</strong>
+        <h2>{{ state?.not_started }}</h2>
+    </div>
+    <div>
+        <strong>In Progress</strong>
+        <h2>{{ state?.in_progress }}</h2>
+    </div>
+    <div>
+        <strong>Completed</strong>
+        <h2>{{ state?.completed }}</h2>
+    </div>
 </template>
 
 <script setup>
