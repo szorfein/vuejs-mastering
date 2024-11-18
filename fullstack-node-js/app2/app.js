@@ -1,10 +1,11 @@
 const express = require('express')
-const port = process.env.PORT || 1337
 const EventEmitter = require('events')
 const fs = require('fs')
 
 const app = express()
+const port = process.env.PORT || 1337
 const chatEmitter = new EventEmitter()
+
 // Go to http://localhost:1337/chat?message=hello
 chatEmitter.on('message', console.log)
 
