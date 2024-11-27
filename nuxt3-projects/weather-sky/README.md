@@ -1,17 +1,13 @@
-# Nuxt Minimal
-
-Project use:
-
-- Nuxt-TailwindCSS https://tailwindcss.nuxtjs.org/
-- Nuxt-GoogleFont https://nuxt.com/modules/google-fonts
-
 ## Learned
-Discover TailwindCSS.
-Configuring Nuxt - modules.
-Nuxt component, compables.
-Directory assets and public:
-- assets - files processed by Vite or webpack (cache, etc)
-- public - served to static URL
+- use Pinia with Nuxt (on 'stores' dir) (auto-load storeToRefs, defineStore, etc...)
+- template v-if, v-else-if
+- basic RESTFUL api with Fastify (on ../weather-sky-api)
+- Get data with $fetch
+- Use Nuxt to store variable env config (nuxt.config)
+
+# Nuxt Minimal Starter
+
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
 
